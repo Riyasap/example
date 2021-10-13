@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:file_picker/file_picker.dart';
 
 
@@ -52,6 +53,7 @@ class _MyAppState extends State<MyApp> {
             : null,
       ))
           ?.files;
+      pathf = _paths;
     } on PlatformException catch (e) {
       _logException('Unsupported operation' + e.toString());
     } catch (e) {
@@ -66,65 +68,9 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _clearCachedFiles() async {
-    _resetState();
-    try {
-      bool? result = await FilePicker.platform.clearTemporaryFiles();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: result! ? Colors.green : Colors.red,
-          content: Text((result
-              ? 'Temporary files removed with success.'
-              : 'Failed to clean temporary files')),
-        ),
-      );
-    } on PlatformException catch (e) {
-      _logException('Unsupported operation' + e.toString());
-    } catch (e) {
-      _logException(e.toString());
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
 
-  void _selectFolder() async {
-    _resetState();
-    try {
-      String? path = await FilePicker.platform.getDirectoryPath();
-      setState(() {
-        _directoryPath = path;
-        _userAborted = path == null;
-      });
-    } on PlatformException catch (e) {
-      _logException('Unsupported operation' + e.toString());
-    } catch (e) {
-      _logException(e.toString());
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
 
-  Future<void> _saveFile() async {
-    _resetState();
-    try {
-      String? fileName = await FilePicker.platform.saveFile(
-        allowedExtensions: (_extension?.isNotEmpty ?? false)
-            ? _extension?.replaceAll(' ', '').split(',')
-            : null,
-        type: _pickingType,
-      );
-      setState(() {
-        _saveAsFileName = fileName;
-        _userAborted = fileName == null;
-      });
-    } on PlatformException catch (e) {
-      _logException('Unsupported operation' + e.toString());
-    } catch (e) {
-      _logException(e.toString());
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
+
 
   void _logException(String message) {
     print(message);
@@ -149,7 +95,7 @@ class _MyAppState extends State<MyApp> {
       _userAborted = false;
     });
   }
-
+  late final pathf;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -233,8 +179,23 @@ class _MyAppState extends State<MyApp> {
                               .toList()[index]
                               .toString();
 
-                          return Container(child: Image.file(
-                              File(path),fit: BoxFit.contain,),);
+                          return Expanded(
+                            child: PDFView(
+                              filePath: path,
+                              enableSwipe: true,
+                              swipeHorizontal: true,
+                              autoSpacing: false,
+                              pageFling: false,
+
+                              onError: (error) {
+                                print(error.toString());
+                              },
+                              onPageError: (page, error) {
+                                print('$page: ${error.toString()}');
+                              },
+
+                            ),
+                          );
                         },
                         separatorBuilder:
                             (BuildContext context,
@@ -286,44 +247,13 @@ class _MyAppState extends State<MyApp> {
                 )
                     : const SizedBox(),
               ),
-              ConstrainedBox(
-                constraints: const BoxConstraints.tightFor(width: 200.0),
-                child: SwitchListTile.adaptive(
-                  title: Text(
-                    'Pick multiple files',
-                    textAlign: TextAlign.right,
-                  ),
-                  onChanged: (bool value) =>
-                      setState(() => _multiPick = value),
-                  value: _multiPick,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
-                child: Column(
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () => _pickFiles(),
-                      child: Text(_multiPick ? 'Pick files' : 'Pick file'),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () => _selectFolder(),
-                      child: const Text('Pick folder'),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () => _saveFile(),
-                      child: const Text('Save file'),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () => _clearCachedFiles(),
-                      child: const Text('Clear temporary files'),
-                    ),
-                  ],
-                ),
-              ),
+      Padding(
+        padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
+        child:
+            ElevatedButton(
+              onPressed: () => _pickFiles(),
+              child: Text(_multiPick ? 'Pick files' : 'Pick file'),
+            ),),
 
 
             ],
