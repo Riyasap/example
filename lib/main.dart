@@ -45,7 +45,8 @@ class _MyAppState extends State<MyApp> {
   LoginController loginController = Get.put(LoginController());
   @override
   void initState() {
-    checkLogin();
+    //TODO add function shared prefererance
+    //checkLogin();
     super.initState();
   }
   @override
@@ -148,7 +149,7 @@ class _MyAppState extends State<MyApp> {
         'home': (context) => MainScreen(),
 
       },
-      initialRoute: '/',
+      initialRoute: 'getStarted',
     );
   }
 }
@@ -156,7 +157,7 @@ void checkLogin() async{
   SharedPreferences pref =await SharedPreferences.getInstance();
   String? value = pref.getString("login");
   if (value !=null){
-    Get.toNamed('/getStarted');
+    Get.toNamed('/');
   }
 }
 

@@ -6,6 +6,8 @@ class CustomColors{
   static const Color black = Color(0xFF121212);
   static const Color bglte = Color(0xFF1C1C1C);
 
+  static const Color border = Color(0xFFB0ADAD);
+
   static const Color red =Color(0xFFD42828);
   static const Color light1 =Color(0xFFB0ADAD);
   static const Color light2 =Color(0xFF717171);

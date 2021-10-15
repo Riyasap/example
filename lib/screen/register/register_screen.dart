@@ -8,6 +8,7 @@ import 'package:redteam_xperience/core/controller/login_controller.dart';
 import 'package:redteam_xperience/shared_widget/appbar_scroll.dart';
 import 'package:redteam_xperience/shared_widget/custom_button.dart';
 import 'package:redteam_xperience/shared_widget/textfield.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -50,19 +51,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                    Center(
             child:Stack(
               children: [
-                Container(margin: const EdgeInsets.only(top: 57),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),color: CustomColors.bglte,),
-                  height: 99,width: 99,
-                  child: Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: SvgPicture.asset(IconAssets.user,),
+                Padding(
+                  padding: const EdgeInsets.only(top: 57),
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    dashPattern: [
+                      6,4
+                    ],color: CustomColors.border,
+                    strokeCap: StrokeCap.square,
+                    strokeWidth: 2,
+                    radius: Radius.circular(16),
+                    padding: EdgeInsets.all(0),
+                    child: Container(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),color: Colors.grey.shade300,),
+                      // height: 99,width: 99,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 34,right: 34,top: 31,bottom: 31),
+                        child: SvgPicture.asset(IconAssets.user,),
+                      ),
+                    ),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 130,left: 74),
-                  height: 32,width: 32,decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.white),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.white),
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 9,top: 6,left: 1),
+                    padding: const EdgeInsets.only(bottom: 9,top: 6,left: 8,right: 7),
                     child: SvgPicture.asset(IconAssets.camera),
                   )
                 ),

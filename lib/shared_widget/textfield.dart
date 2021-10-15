@@ -29,7 +29,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: CustomColors.light1),
         decoration: InputDecoration(
           label: Padding(
             padding: const EdgeInsets.only(left: 25),
@@ -42,19 +42,19 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                   .copyWith(color: CustomColors.light2),
             ),
           ),
-          fillColor: CustomColors.bglte,
+          fillColor: Colors.white,
           filled: true,
           border: OutlineInputBorder(
-              borderSide: const BorderSide(color: CustomColors.bglte),
+              borderSide: const BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(16)),
           labelStyle: const TextStyle(fontSize: 30),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: CustomColors.bglte),
+            borderSide: const BorderSide(color: Colors.white),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: CustomColors.bglte),
+            borderSide: const BorderSide(color: Colors.white),
           ),
 
         )

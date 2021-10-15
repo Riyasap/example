@@ -26,26 +26,27 @@ class _AppBarScrollState extends State<AppBarScroll> {
           //color: Colors.yellow
         ),
 
-        child:SafeArea(
-          child: FlexibleSpaceBar(
-            background: Container(
-              color: CustomColors.red,
-              child: Stack(
-                children: [
-                  Image.asset(widget.image,fit: BoxFit.fill,),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32,),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Welcome to",style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.white),),
-                        Text("Redteam",style: Theme.of(context).textTheme.headline1!.copyWith(color: CustomColors.black),),
-                      ],
-                    ),
-                  )
-                ],
-              ),padding:const EdgeInsets.only(top: 59,left: 35),),
-          ),
+        child:FlexibleSpaceBar(
+          background: Container(
+            color: CustomColors.red,
+            child: Stack(fit: StackFit.passthrough,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 75),
+                  child: Image.asset(widget.image,fit: BoxFit.fitWidth,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 21,top: 120,),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Welcome to",style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.white),),
+                      Text("Redteam",style: Theme.of(context).textTheme.headline1!.copyWith(color: CustomColors.black),),
+                    ],
+                  ),
+                )
+              ],
+            ),),
         ),),
     );
   }

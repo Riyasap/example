@@ -47,7 +47,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headline3!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: CustomColors.black),
               )),
             ),
             Padding(
@@ -58,7 +58,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: CustomColors.black),
               )),
             ),
             const SizedBox(
@@ -66,22 +66,22 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
-              child: PinCodeTextField(textStyle: const TextStyle(color: Colors.white),
+              child: PinCodeTextField(textStyle: const TextStyle(color: CustomColors.light2),
                 animationType: AnimationType.scale,
                 autoFocus: true,
                 enableActiveFill: true,
                 enablePinAutofill: true,
                 showCursor: true,
-                cursorColor: CustomColors.light2,
+                cursorColor: CustomColors.light1,
                 length: 6,
                 keyboardType: TextInputType.phone,
                 pinTheme: PinTheme(
-                  activeFillColor: CustomColors.bglte,
-                  inactiveFillColor: CustomColors.bglte,
-                  selectedFillColor: CustomColors.bglte,
-                  activeColor: CustomColors.bglte,
-                  inactiveColor: CustomColors.bglte,
-                  selectedColor: CustomColors.bglte,
+                  activeFillColor: Colors.white,
+                  inactiveFillColor: Colors.white,
+                  selectedFillColor: Colors.white,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.white,
+                  selectedColor: Colors.white,
                   shape: PinCodeFieldShape.box,
                   borderWidth: 2,
                   borderRadius: BorderRadius.circular(16),
@@ -101,7 +101,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2!
-                    .copyWith(color: CustomColors.light1),
+                    .copyWith(color: CustomColors.black),
               ),
             ),
             Padding(
@@ -113,7 +113,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .subtitle2!
-                        .copyWith(color: Colors.white),
+                        .copyWith(color: CustomColors.red),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         print('Resend Code');

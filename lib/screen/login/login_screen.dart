@@ -46,17 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return true;
   }
-  final Map<String, int> discBasis = {
-    'Age': 1,
-    'Ancestry': 2,
-    'Color': 3,
-    'Disability': 4,
-    'Race': 5,
-    'Religion': 6,
-    'Sex': 7,
-    'Familial Status': 8,
-    'National Origin': 9
-  };
 
 
   @override
@@ -79,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: Theme.of(context)
                       .textTheme
                       .headline3!
-                      .copyWith(color: Colors.white),
+                      .copyWith(color: CustomColors.black),
                 )),
                 SizedBox(
                   height: 40,
@@ -92,45 +81,45 @@ class _LoginScreenState extends State<LoginScreen> {
                   autofocus: true,
                   maxLength: 10,
                   keyboardType: TextInputType.phone,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: CustomColors.light2,letterSpacing: 1,fontSize: 20),
                   decoration: InputDecoration(
 
                     prefix: Padding(
                       padding: const EdgeInsets.only(right: 8,left: 8),
-                      child:
-                      DropdownButton<String>(
-                        focusColor:Colors.white,
-                        value: _chosenValue,
-                        //elevation: 5,
-                        style: TextStyle(color: Colors.white),
-                        iconEnabledColor:Colors.black,
-                        items: <String>[
-                          'Android',
-                          'IOS',
-                          'Flutter',
-                          'Node',
-                          'Java',
-                          'Python',
-                          'PHP',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,style:TextStyle(color:Colors.white),),
-                          );
-                        }).toList(),
-                        hint:Text(
-                          "Please choose a langauage",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        // onChanged: (String value) {
-                        //   setState(() {
-                        //     _chosenValue = value;
-                        //   });
-                        // },
-                      ),
+                      // child:
+                      // DropdownButton<String>(
+                      //   focusColor:Colors.white,
+                      //   value: _chosenValue,
+                      //   //elevation: 5,
+                      //   style: TextStyle(color: Colors.white),
+                      //   iconEnabledColor:Colors.black,
+                      //   items: <String>[
+                      //     'Android',
+                      //     'IOS',
+                      //     'Flutter',
+                      //     'Node',
+                      //     'Java',
+                      //     'Python',
+                      //     'PHP',
+                      //   ].map<DropdownMenuItem<String>>((String value) {
+                      //     return DropdownMenuItem<String>(
+                      //       value: value,
+                      //       child: Text(value,style:TextStyle(color:Colors.white),),
+                      //     );
+                      //   }).toList(),
+                      //   hint:Text(
+                      //     "Please choose a langauage",
+                      //     style: TextStyle(
+                      //         color: Colors.black,
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w500),
+                      //   ),
+                      //   // onChanged: (String value) {
+                      //   //   setState(() {
+                      //   //     _chosenValue = value;
+                      //   //   });
+                      //   // },
+                      // ),
                       //Text("+91",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
                     ),
                       // prefix: CountryCodePicker(
@@ -148,10 +137,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       //   // optional. aligns the flag and the Text left
                       //   alignLeft: true,
                       // ),
-                      fillColor: CustomColors.bglte,
+                      fillColor: Colors.white,
                       filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(16)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(16)),
+
                       border: OutlineInputBorder(
-                          // borderSide: BorderSide(color: CustomColors.red),
+                          borderSide: BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(16)),
                       label: Padding(
                         padding: const EdgeInsets.only(left: 25),
