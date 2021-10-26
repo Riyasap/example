@@ -4,13 +4,15 @@ import 'package:redteam_xperience/core/style/custom_colors.dart';
 
 
 class TextFieldCustom extends StatefulWidget {
-  const TextFieldCustom({Key? key, this.hint,
+  const TextFieldCustom({this.hint,
     this.controller,
     this.onChanged,
     this.initialValue,
     this.errorText,
     this.keyboard,
-  }) : super(key: key);
+    this.maxLine=1,
+  });
+
 
   final String? hint;
   final String? errorText;
@@ -18,6 +20,7 @@ class TextFieldCustom extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? keyboard;
   final ValueChanged<String>? onChanged;
+  final int maxLine;
 
   @override
   State<TextFieldCustom> createState() => _TextFieldCustomState();
@@ -29,19 +32,15 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        style: const TextStyle(color: CustomColors.light1),
+      maxLines: widget.maxLine,
+        style: const TextStyle(color: CustomColors.light2),
         decoration: InputDecoration(
-          label: Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Text(
-              widget.hint.toString(),
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(color: CustomColors.light2),
-            ),
-          ),
+          hintText: widget.hint.toString(),
+          hintStyle: Theme
+              .of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: CustomColors.light2),
           fillColor: Colors.white,
           filled: true,
           border: OutlineInputBorder(

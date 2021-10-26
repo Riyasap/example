@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:redteam_xperience/core/controller/login_controller.dart';
-import 'package:redteam_xperience/core/style/custom_colors.dart';
+import 'package:redteam_xperience/screen/example.dart';
 import 'package:redteam_xperience/screen/home.dart';
 import 'package:redteam_xperience/screen/login/login_screen.dart';
-import 'package:redteam_xperience/screen/register/register_screen.dart';
-import 'package:redteam_xperience/screen/get_started/get_started.dart';
-import 'package:redteam_xperience/shared_widget/appbar.dart';
-import 'package:redteam_xperience/shared_widget/container1.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:redteam_xperience/screen/my_courses.dart';
+import 'package:redteam_xperience/screen/notification_screen.dart';
 import '../core/constants/assets.dart';
 
 class MainScreen extends StatefulWidget {
@@ -27,18 +20,9 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
     //TODO St Navigation Bottom
-    Text(
-      'Index 1: Booking',
-
-    ),
-    Text(
-      'Index 2: Notification',
-
-    ),
-    Text(
-      'Index 3: Profile',
-
-    ),
+    MyCourses(),
+    NotificationScreen(),
+    Example()
   ];
 
   void _onItemTapped(int index) {
@@ -56,29 +40,30 @@ class _MainScreenState extends State<MainScreen> {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(IconAssets.home,color:
               _selectedIndex==0
-                  ?Color(0xFFD42828)
-              :Color(0xFFB0ADAD),),
+                  ?const Color(0xFFD42828)
+              :const Color(0xFFB0ADAD),),
                 label: 'Home'
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(IconAssets.book,color:
+              icon: SvgPicture.asset(IconAssets.mycourse,color:
               _selectedIndex==1
-                  ?Color(0xFFD42828)
-                  :Color(0xFFB0ADAD),),
+                  ?const Color(0xFFD42828)
+                  :const Color(0xFFB0ADAD),),
               label: 'Course'
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(IconAssets.notification,color:
               _selectedIndex==2
-                  ?Color(0xFFD42828)
-                  :Color(0xFFB0ADAD),),
+                  ?
+              const Color(0xFFD42828)
+                  :const Color(0xFFB0ADAD),),
                 label: 'Notification'
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(IconAssets.user,color:
               _selectedIndex==3
-                  ?Color(0xFFD42828)
-                  :Color(0xFFB0ADAD),),
+                  ?const Color(0xFFD42828)
+                  :const Color(0xFFB0ADAD),),
                 label: 'Profile'
             ),
         ],

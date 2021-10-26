@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484576473384",
+    "project_id": "redteam-xperience",
+    "storage_bucket": "redteam-xperience.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484576473384:android:e586d97010a419f34fa01d",
+        "android_client_info": {
+          "package_name": "com.redteam.xperience.redteam_xperience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484576473384-kfh5o2gfmul1i0tvn7gum1d8kggpho2c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0b5YXI487pWSDPiJtji7a4yhqmoliHz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484576473384-kfh5o2gfmul1i0tvn7gum1d8kggpho2c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.redteam.xperience.redteam_xperience">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="redteam_xperience"
         android:icon="@mipmap/ic_launcher">

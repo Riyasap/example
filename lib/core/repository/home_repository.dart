@@ -1,5 +1,5 @@
-import 'package:redteam_xperience/core/model/user_model.dart';
-import '../model/user_model.dart';
+import 'package:redteam_xperience/model/user_model.dart';
+import '../../model/user_model.dart';
 abstract class HomeRepository {
   Future<List<UserModel>> GetCurrentUser();
 }

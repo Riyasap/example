@@ -6,9 +6,10 @@ class UserModel {
   String phoneNo;
   String userId;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    phoneNo: json["phone_no"], userId: json["id"],
-  );
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      UserModel(
+        phoneNo: json["phone_no"], userId: json["id"],
+      );
 
   Map<String, dynamic> toJson() => {
     "phone_no": phoneNo,

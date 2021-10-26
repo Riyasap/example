@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   }
 
 
-  void _pickFiles() async {
+  void pickFiles() async {
     _resetState();
     try {
       _directoryPath = null;
@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color(
                             0x2251DCFC)) ),
                         onPressed:
-                              () => _pickFiles(),
+                              () => pickFiles(),
                         child: Center(child: Text("Click to Upload",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),)),
                       ),
                     ),
@@ -251,7 +251,7 @@ class _MyAppState extends State<MyApp> {
         padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
         child:
             ElevatedButton(
-              onPressed: () => _pickFiles(),
+              onPressed: () => pickFiles(),
               child: Text(_multiPick ? 'Pick files' : 'Pick file'),
             ),),
 

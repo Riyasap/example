@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:redteam_xperience/core/controller/login_controller.dart';
+import 'package:redteam_xperience/core/controller/user_controller.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
 import 'package:redteam_xperience/shared_widget/appbar.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -30,6 +31,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   String num = "";
+  UserController userController=UserController();
   LoginController loginController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -90,6 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 onChanged: (value) {
                   num = value;
+                  print(num);
                 },
                 appContext: (context),
               ),
@@ -126,7 +129,9 @@ class _OtpScreenState extends State<OtpScreen> {
               child: CustomButton(
                 title: "Submit",
                 onPressed: () {
-                  if(num.length==6)
+                  //TODO number Function
+                  // if(num.length==6)
+                  //userController.verify2(num);
                   Get.offAndToNamed('register');
                 },
               ),

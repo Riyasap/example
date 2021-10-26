@@ -60,7 +60,7 @@ class _GetStartedState extends State<GetStarted> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 104,left: 40,right: 40),
                       child: CustomButton(title:"Get Started",
-                        onPressed: ()=> Get.toNamed('login'),
+                        onPressed: ()=> Get.offAndToNamed('login'),
                       ),
                     ),
                   ],

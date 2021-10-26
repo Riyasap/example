@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:redteam_xperience/core/controller/login_controller.dart';
+import 'package:redteam_xperience/core/controller/user_controller.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
 import 'package:redteam_xperience/shared_widget/appbar.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -16,18 +18,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //final _auth = FirebaseAuth.instance;
+  UserController userController=UserController();
+  String selectedCountryCode = "+91";
   TextEditingController _controller = new TextEditingController();
   LoginController loginController = Get.find();
   String num = "";
-  String _chosenValue="Android";
+  String number = "";
+  String _chosenValue = "Android";
   var currentFocus;
-
-
   unfocus() {
     currentFocus = FocusScope.of(context);
 
-    if (!currentFocus.
-    hasPrimaryFocus) {
+    if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }
   }
@@ -47,7 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return true;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -59,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Center(
@@ -70,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       .headline3!
                       .copyWith(color: CustomColors.black),
                 )),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 TextFormField(
@@ -81,140 +83,68 @@ class _LoginScreenState extends State<LoginScreen> {
                   autofocus: true,
                   maxLength: 10,
                   keyboardType: TextInputType.phone,
-                  style: TextStyle(color: CustomColors.light2,letterSpacing: 1,fontSize: 20),
+                  style: const TextStyle(
+                      color: CustomColors.light2,
+                      letterSpacing: 1,
+                      fontSize: 20),
                   decoration: InputDecoration(
+                      prefixIcon:  CountryCodePicker(flagWidth: 46,
+                        onChanged: (value) {
+                          selectedCountryCode = value.toString();
+                          print(selectedCountryCode);
+                      },
+                        padding: const EdgeInsets.only(left: 8,right: 0),
+                        initialSelection: '+91',
+                        favorite: const ['+91','+971','+973'],
+                        //showCountryOnly: true,
+                        showFlagMain: true,
+                        showOnlyCountryWhenClosed: false,
+                        showFlagDialog: true,
+                        hideMainText: true,
+                        alignLeft: false,
+                        flagDecoration: const BoxDecoration(shape: BoxShape.circle,),
+                      ),
 
-                    prefix: Padding(
-                      padding: const EdgeInsets.only(right: 8,left: 8),
-                      // child:
-                      // DropdownButton<String>(
-                      //   focusColor:Colors.white,
-                      //   value: _chosenValue,
-                      //   //elevation: 5,
-                      //   style: TextStyle(color: Colors.white),
-                      //   iconEnabledColor:Colors.black,
-                      //   items: <String>[
-                      //     'Android',
-                      //     'IOS',
-                      //     'Flutter',
-                      //     'Node',
-                      //     'Java',
-                      //     'Python',
-                      //     'PHP',
-                      //   ].map<DropdownMenuItem<String>>((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(value,style:TextStyle(color:Colors.white),),
-                      //     );
-                      //   }).toList(),
-                      //   hint:Text(
-                      //     "Please choose a langauage",
-                      //     style: TextStyle(
-                      //         color: Colors.black,
-                      //         fontSize: 14,
-                      //         fontWeight: FontWeight.w500),
-                      //   ),
-                      //   // onChanged: (String value) {
-                      //   //   setState(() {
-                      //   //     _chosenValue = value;
-                      //   //   });
-                      //   // },
-                      // ),
-                      //Text("+91",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
-                    ),
-                      // prefix: CountryCodePicker(
-                      //   hideMainText: true,
-                      //   padding: EdgeInsets.all(0),
-                      //   onChanged: print,
-                      //   // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                      //   initialSelection: 'IN',
-                      //   favorite: ['+91', '+33', '+971', '+974', '+34', '+880'],
-                      //   // optional. Shows only country name and flag
-                      //   //showCountryOnly: true,
-                      //   // optional. Shows only country name and flag when popup is closed.
-                      //   showOnlyCountryWhenClosed: false,
-                      //   showFlagDialog: true,
-                      //   // optional. aligns the flag and the Text left
-                      //   alignLeft: true,
-                      // ),
                       fillColor: Colors.white,
                       filled: true,
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(16)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(16)),
-
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(16)),
-                      label: Padding(
-                        padding: const EdgeInsets.only(left: 25),
-                        child: Text(
-                          "Enter the Number",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: CustomColors.light2),
-                        ),
-                      ),
-                      labelStyle: TextStyle(fontSize: 30),
-                      suffixIcon: Icon(Icons.accessibility_rounded)),
+                      hintText: "Enter the Number",
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: CustomColors.light2),
+
+                  ),
                   onChanged: (value) {
-                    num = value;
+                    num =value;
+                    number = selectedCountryCode + value;
                   },
                 ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(color: CustomColors.light2),
-                            children: [
-                              TextSpan(
-                                text:
-                                    "By creating passcode you agree with our\n",
-                              ),
-                              TextSpan(
-                                  text: "Terms & Conditions",
-                                  style: TextStyle(color: CustomColors.red),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      print('Terms And Conditons~~~~~~~');
-                                    }),
-                              TextSpan(text: "\tand"),
-                              TextSpan(
-                                  text: "\tPrivacy policy",
-                                  style: TextStyle(color: CustomColors.red),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      print('Privacy policy~~~~~~~');
-                                    }),
-                            ])),
-                  ),
-                ),
-                SizedBox(
+                const Spacer(),
+
+                const SizedBox(
                   height: 24,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 24),
                   child: CustomButton(
                     title: "Get OTP",
-                    onPressed: () {
-                      if (num.length == 10) {
-                        loginController.changePhoneNumber(num);
-                        Get.toNamed('otp');
-                      } else {
-                        return null;
-                      }
-                      },
+                    onPressed: () async {
+                      //TODO function Number
+                      //   if (num.length == 10) {
+                      //     loginController.changePhoneNumber(num);
+                      //     userController.verify(number);
+                           Get.toNamed('otp');
+                    //}
+                    },
                   ),
                 )
               ],

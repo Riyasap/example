@@ -5,6 +5,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:redteam_xperience/core/constants/config.dart';
 import 'package:redteam_xperience/core/controller/login_controller.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
+import 'package:redteam_xperience/screen/home.dart';
 import 'package:redteam_xperience/screen/login/login_screen.dart';
 import 'package:redteam_xperience/screen/otp/otp_screen.dart';
 import 'package:redteam_xperience/screen/payment_screen/payment_screen.dart';
@@ -12,11 +13,13 @@ import 'package:redteam_xperience/screen/register/register_screen.dart';
 import 'package:redteam_xperience/screen/main_screen.dart';
 import 'package:redteam_xperience/screen/get_started/get_started.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initApp();
   initOneSignal();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 Future<void> initOneSignal() async {
@@ -53,10 +56,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return getApp();
   }
-
+  ThemeData _darkTheme = ThemeData(
+      accentColor: Colors.red,
+      brightness: Brightness.dark,
+      primaryColor: Colors.amber,
+      buttonTheme: ButtonThemeData(
+        buttonColor: Colors.amber,
+        disabledColor: Colors.grey,
+      ));ThemeData _lightTheme = ThemeData(
+      accentColor: Colors.pink,
+      brightness: Brightness.light,
+      primaryColor: Colors.blue,
+      buttonTheme: ButtonThemeData(
+        buttonColor: Colors.blue,
+        disabledColor: Colors.grey,
+      ));
   Widget getApp() {
     return GetMaterialApp(
       title: "RedTeam Xperience",
+      themeMode: ThemeMode.system,
+      //darkTheme: _darkTheme,
       theme: ThemeData(
         scaffoldBackgroundColor: CustomColors.background,
         textTheme:TextTheme(
@@ -141,15 +160,15 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         '/': (context) => const MainScreen(),
-        'login': (context) => LoginScreen(),
-        'getStarted': (context) => GetStarted(),
+        'login': (context) => const LoginScreen(),
+        'getStarted': (context) => const GetStarted(),
         'register': (context) => RegisterScreen(),
-        'otp': (context) => OtpScreen(),
-        'payment': (context) => PaymentScreen(),
-        'home': (context) => MainScreen(),
+        'otp': (context) => const OtpScreen(),
+        'payment': (context) => const PaymentScreen(),
+        'home': (context) => const Home(),
 
       },
-      initialRoute: 'getStarted',
+      initialRoute: '/',
     );
   }
 }

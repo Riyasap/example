@@ -1,24 +1,23 @@
 import 'package:redteam_xperience/core/constants/assets.dart';
 
 class LiveClassModel {
-  int id=123;
-  String date="sss";
-  String moduleName="Module";
-  String bannerUrl=ImageAssets.img1;
-  String teacherName="Teacher Name";
-  String topicName="Topic";
+  int? id;
+  String? date;
+  String? moduleName;
+  String? bannerUrl;
+  String? teacherName;
+  String? topicName;
 
+  LiveClassModel({this.moduleName,  this.bannerUrl,  this.id, this.date, this.teacherName, this.topicName});
 
-  LiveClassModel({required this.moduleName, required this.bannerUrl, required this.id,required this.date,required this.teacherName,required this.topicName});
-
-  //  LiveClassModel.test(){
-  //   id=123;
-  //   date="sss";
-  //   moduleName="Module";
-  //   bannerUrl=ImageAssets.img1;
-  //   teacherName="Teacher Name";
-  //   topicName="Topic";
-  // }
+   LiveClassModel.test(){
+    id=123;
+    date="sss";
+    moduleName="Module";
+    bannerUrl=ImageAssets.img1;
+    teacherName="Teacher Name";
+    topicName="Elements of Information Security(CIA-Triad),";
+  }
 
   // LiveClassModel.fromJson(Map<String, dynamic> json) {
   //   id = json['id'];
