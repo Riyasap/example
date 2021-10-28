@@ -13,7 +13,14 @@ class ImageAssets {
   static const String img1 = "assets/image/img1.png";
   static const String img2 = "assets/image/img2.png";
   static const String lock = "assets/image/lock.png";
+  static const String liveClassError = "assets/image/live_class_error.png";
 
+  static const String event1 = "assets/image/image 5.jpg";
+  static const String event2 = "assets/image/image 6.jpg";
+  static const String event3 = "assets/image/image 7.jpg";
+  static const String event4 = "assets/image/image 8.jpg";
+
+  static const String expiredImage = "assets/image/expiredImage.png";
 }
 
 class IconAssets{
@@ -34,10 +41,20 @@ class IconAssets{
   static const String videoSquare = "assets/icon/video-square.svg";
   static const String certificate = "assets/icon/certificate.svg";
 
-  static const String tickCircle = "assets/icon/tick-circle.svg";
+  static const String tickCircleRed = "assets/icon/tick_circle_red.svg";
   static const String right = "assets/icon/right.svg";
   static const String infoCircle = "assets/icon/info_circle.svg";
   static const String clock = "assets/icon/clock.svg";
+  static const String close = "assets/icon/close.svg";
+
+  static const String tickCircleGrey = "assets/icon/tick_circle_grey.svg";
+  static const String timer = "assets/icon/timer.svg";
+  static const String question = "assets/icon/question.svg";
+  static const String lockCircle = "assets/icon/lock_circle.svg";
+  static const String lockCircle1 = "assets/icon/lock-circle.svg";
+
+  static const String note_big = "assets/icon/note_big.svg";
+  static const String material = "assets/icon/material.svg";
   //TODO delete
   static const String live = "assets/icon/live.svg";
   static const String events = "assets/icon/events.svg";

@@ -135,7 +135,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   title: "Next",
                   onPressed: () {
                     //Todo change navigation
-                    Get.offAllNamed('home');
+                    Get.offAllNamed('/');
                   },
                 ),
               )

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:redteam_xperience/core/constants/assets.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
-import 'package:redteam_xperience/features/course/course_details.dart';
-import 'package:redteam_xperience/model/course_model.dart';
+import 'package:redteam_xperience/features/course/view/course_details.dart';
+import 'package:redteam_xperience/features/course/model/course_model.dart';
 import 'package:redteam_xperience/shared_widget/appbar.dart';
 import 'package:redteam_xperience/shared_widget/custom_button.dart';
 
@@ -17,7 +17,7 @@ class AllCourses extends StatefulWidget {
 
 class _AllCoursesState extends State<AllCourses> {
   final PageController pageController = PageController(initialPage: 0);
-  CourseModel allCourses= CourseModel.Test();
+  final courseModel=CourseModel.test();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class _AllCoursesState extends State<AllCourses> {
       ),
       body:
       PageView.builder(
-        itemCount: 3,
+        itemCount: courseModel.length,
         controller: pageController, itemBuilder: (BuildContext context, int index) {
         return
       Column(
@@ -48,19 +48,22 @@ class _AllCoursesState extends State<AllCourses> {
                   children: [
                     Column(
                       children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(32),
-                                topLeft: Radius.circular(32)),
-                            child: Image.asset(allCourses.imgUrl)),
+                        Container(height: 220,
+                          width: MediaQuery.of(context).size.width,
+                          child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(32),
+                                  topLeft: Radius.circular(32)),
+                              child: Image.asset(courseModel[index].imgUrl,fit: BoxFit.fill,)),
+                        ),
                         const SizedBox(
                           height: 11,
                         ),
                       ],
                     ),
-                    Container(
+                    if(courseModel[index].ifNew??false)Container(
                       margin:
-                          const EdgeInsets.only(right: 20, top: 225, left: 270),
+                          const EdgeInsets.only(right: 20, top: 205, left: 270),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
                       decoration: BoxDecoration(
@@ -74,8 +77,10 @@ class _AllCoursesState extends State<AllCourses> {
                             ?.copyWith(color: Colors.white),
                       ),
                     ),
+
                   ],
                 ),
+                if(courseModel[index].ifNew==false)SizedBox(height: 3,),
                 const SizedBox(
                   height: 17,
                 ),
@@ -85,14 +90,14 @@ class _AllCoursesState extends State<AllCourses> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        allCourses.name,
+                        courseModel[index].name,
                         style: Theme.of(context).textTheme.headline1,
                       ),
                       const SizedBox(
                         height: 12,
                       ),
                       Text(
-                        allCourses.branch,
+                        courseModel[index].branch,
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       const SizedBox(
@@ -109,7 +114,7 @@ class _AllCoursesState extends State<AllCourses> {
                                   width: 14,
                                 ),
                                 Text(
-                                  allCourses.duration.inDays.toString() + " days",
+                                  courseModel[index].duration + " min",
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
                               ],
@@ -240,21 +245,21 @@ class _AllCoursesState extends State<AllCourses> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  allCourses.ifOffer?Column(
+                  courseModel[index].ifOffer?Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
                         height: 19,
                       ),
                       Text(
-                        "₹ "+allCourses.offerPrice,
+                        "₹ "+courseModel[index].offerPrice,
                         style: Theme.of(context)
                             .textTheme
                             .headline2
                             ?.copyWith(color: CustomColors.red),
                       ),
                       Text(
-                        "₹ "+allCourses.mrpRate,
+                        "₹ "+courseModel[index].mrpRate,
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             color: CustomColors.light2,decorationColor: CustomColors.red,
                             decorationThickness: 1,
@@ -262,7 +267,7 @@ class _AllCoursesState extends State<AllCourses> {
                       ),
                     ],
                   ):Text(
-                    "₹ "+allCourses.mrpRate,
+                    "₹ "+courseModel[index].mrpRate,
                     style: Theme.of(context)
                         .textTheme
                         .headline2
@@ -270,7 +275,8 @@ class _AllCoursesState extends State<AllCourses> {
                   ),
                   ElevatedButton(
                     onPressed: (){
-                      Get.to(()=>CourseDetails());
+                      Get.to(()=>CourseDetails(courseModel:
+                      courseModel[index]));
                     },
 
                     child: Row(

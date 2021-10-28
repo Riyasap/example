@@ -36,15 +36,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       currentFocus.unfocus();
     }
   }
-
-
-
   FilePick picker = FilePick();
-
   LoginController loginController = Get.find();
   String name = "";
   String num = "";
-
   final formKey = GlobalKey<FormState>();
   var passCont = TextEditingController();
   var nameCont = TextEditingController();
@@ -61,10 +56,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
     }
   }
-  late var dateTime;
+  final dateTime=DateTime.now().obs;
   @override
   void initState() {
-    dateTime = DateTime.now().obs;
+    //dateTime = DateTime.now().obs;
     super.initState();
   }
   @override

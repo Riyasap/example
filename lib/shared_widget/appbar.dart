@@ -6,6 +6,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget{
      this.title="",
      this.elevation=0.0,
      this.trailing=const SizedBox(),
+     this.leftAlignTitle=false,
      this.border=false,
      this.color,
   }) : super(key: key);
@@ -13,6 +14,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget{
   final String title;
   final double elevation;
   final Widget trailing;
+  final bool leftAlignTitle;
   final bool border;
   final Color? color;
 
@@ -25,8 +27,8 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget{
           : null,
       backgroundColor: color??CustomColors.background,
       iconTheme: IconTheme.of(context).copyWith(color: CustomColors.black),
-      title: Text(title,style: Theme.of(context).textTheme.subtitle1?.copyWith(color: CustomColors.black),),
-      centerTitle: true,
+      title: Text(title,style: Theme.of(context).textTheme.headline3,),
+      centerTitle: !leftAlignTitle,
       elevation: 0,
       actions: [
         trailing

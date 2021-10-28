@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:redteam_xperience/core/constants/assets.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
-import 'package:redteam_xperience/model/live_class_model.dart';
+import 'package:redteam_xperience/features/live_classes/model/live_class_model.dart';
 
 class LiveClassCardBig extends StatelessWidget {
   LiveClassCardBig({required this.liveClassModel});

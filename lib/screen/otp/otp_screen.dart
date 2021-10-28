@@ -123,16 +123,17 @@ class _OtpScreenState extends State<OtpScreen> {
                       }),
               )),
             ),
+            Spacer(),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 16, right: 16, bottom: 24, top: 72),
+                  left: 16, right: 16, bottom: 24),
               child: CustomButton(
                 title: "Submit",
                 onPressed: () {
                   //TODO number Function
                   // if(num.length==6)
                   //userController.verify2(num);
-                  Get.offAndToNamed('register');
+                  Get.offAllNamed('/');
                 },
               ),
             ),

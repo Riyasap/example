@@ -1,19 +1,19 @@
+import 'package:redteam_xperience/core/constants/assets.dart';
+
 class UserModel {
   UserModel({
-    required this.phoneNo,required this.userId
+    required this.phoneNo,required this.userId,this.imgUrl,required this.name
   });
 
   String phoneNo;
-  String userId;
+  int userId;
+  String? imgUrl;
+  String name;
+  factory UserModel.test(){
+    return UserModel(phoneNo: "8899889977", userId: 87952,imgUrl: ImageAssets.liveClass,name: "Patric Viera");
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      UserModel(
-        phoneNo: json["phone_no"], userId: json["id"],
-      );
+  }
 
-  Map<String, dynamic> toJson() => {
-    "phone_no": phoneNo,
-    "user_id":userId
-  };
+
 
 }

@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
               fontSize: 24,
               height: 1.32,
               color: CustomColors.black,
-              //letterSpacing: 1,
+              letterSpacing: 1,
             ),
           headline3:GoogleFonts.poppins(
             fontStyle: FontStyle.normal,
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
             fontSize: 20,
             height: 1.38,
             color: CustomColors.black,
-            //letterSpacing: 1,
+            letterSpacing: 1,
           ),
           subtitle1: GoogleFonts.poppins(
             fontStyle: FontStyle.normal,
@@ -108,7 +108,7 @@ class _MyAppState extends State<MyApp> {
             fontSize: 16,
             height: 1.5,
             color: CustomColors.black,
-            //letterSpacing: 1,
+            letterSpacing: 1,
           ),
           subtitle2: GoogleFonts.poppins(
             fontStyle: FontStyle.normal,
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
             fontSize: 14,
             height: 1.42,
             color: CustomColors.black,
-            //letterSpacing: 1,
+            letterSpacing: 1,
           ),
           bodyText1: GoogleFonts.poppins(
               fontStyle: FontStyle.normal,
@@ -124,7 +124,7 @@ class _MyAppState extends State<MyApp> {
               fontSize: 16,
               height: 1.5,
             color: CustomColors.black,
-              //letterSpacing: 1,
+              letterSpacing: 1,
           ),
           bodyText2: GoogleFonts.poppins(
               fontStyle: FontStyle.normal,
@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
               fontSize: 14,
               height: 1.4,
             color: CustomColors.black,
-              //letterSpacing: 1,
+              letterSpacing: 1,
           ),
           caption: GoogleFonts.poppins(
               fontStyle: FontStyle.normal,
@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
               fontSize: 12,
               height: 1.6,
             color: CustomColors.black,
-              //letterSpacing: 1,
+              letterSpacing: 1,
           ),
           button: GoogleFonts.poppins(
             fontStyle: FontStyle.normal,
@@ -165,7 +165,6 @@ class _MyAppState extends State<MyApp> {
         'register': (context) => RegisterScreen(),
         'otp': (context) => const OtpScreen(),
         'payment': (context) => const PaymentScreen(),
-        'home': (context) => const Home(),
 
       },
       initialRoute: '/',

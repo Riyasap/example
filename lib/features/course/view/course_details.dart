@@ -2,51 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:redteam_xperience/core/constants/assets.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
-import 'package:redteam_xperience/model/course_model.dart';
+import 'package:redteam_xperience/features/course/model/course_model.dart';
 import 'package:redteam_xperience/model/video_model.dart';
 import 'package:redteam_xperience/shared_widget/custom_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
 class CourseDetails extends StatefulWidget {
+  CourseDetails({required this.courseModel});
+CourseModel courseModel;
   @override
   _CourseDetailsState createState() => _CourseDetailsState();
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-  CourseModel allCourse = CourseModel.Test();
   VideoModel video = VideoModel.test();
   bool descTextShowFlag = false;
   List<String> descriptionItems = List<String>.generate(55, (i) => "Item $i");
   List<String> syllabusItems = List<String>.generate(20, (i) => "Item $i");
   List<String> items1 = <String>[];
-  List<String> items2 = <String>[];
-  int perPageDescrptn = 10;
+  List<SyllabusModel> items2 = <SyllabusModel>[];
+  int perPageDescrptn = 4;
   int presentDescptn = 0;
-  int perPageSyllabus = 5;
+  int perPageSyllabus = 4;
   int presentSyllabus = 0;
-  bool isPressed = false;
+  bool isSyllabusPressed = false;
+  bool isSeeMorePressed = false;
+  List<SyllabusModel> syllabusM=SyllabusModel.test();
 
   late ChewieController chewieController;
   @override
   void initState() {
+
     super.initState();
+    if(widget.courseModel.courseDesc.length<=perPageDescrptn){
+      isSeeMorePressed=true;
+    }
+    if(widget.courseModel.syllabusModel.length<=perPageSyllabus){
+      isSyllabusPressed=true;
+    }
     VideoPlayerController videoPlayerController =
-        VideoPlayerController.network(video.videoUrl.toString());
+        VideoPlayerController.network(widget.courseModel.videoPreviewUrl);
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
       //autoPlay: true,
       autoInitialize: true,
     );
 
-    setState(() {
-      items1.addAll(descriptionItems.getRange(
-          presentDescptn, presentDescptn + perPageDescrptn));
-      items2.addAll(syllabusItems.getRange(
-          presentSyllabus, presentSyllabus + perPageSyllabus));
-      presentDescptn = presentDescptn + perPageDescrptn;
-      presentSyllabus = presentSyllabus + perPageSyllabus;
-    });
+    // setState(() {
+    //   items1.addAll(descriptionItems.getRange(
+    //       presentDescptn, presentDescptn + perPageDescrptn));
+    //   items2.addAll(syllabusItems.getRange(
+    //       presentSyllabus, presentSyllabus + perPageSyllabus));
+    //   presentDescptn = presentDescptn + perPageDescrptn;
+    //   presentSyllabus = presentSyllabus + perPageSyllabus;
+    // });
   }
 
   @override
@@ -57,6 +67,7 @@ class _CourseDetailsState extends State<CourseDetails> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: CustomScrollView(shrinkWrap: true, slivers: <Widget>[
       SliverAppBar(
@@ -85,7 +96,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                   decoration: BoxDecoration(
                     color: CustomColors.red,
                     image: DecorationImage(
-                        image: AssetImage(allCourse.imgUrl), fit: BoxFit.fill),
+                        image: AssetImage(widget.courseModel.imgUrl), fit: BoxFit.fill),
                   ),
                 ),
                 Container(
@@ -95,7 +106,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     children: [
                       const Spacer(),
                       Text(
-                        allCourse.name,
+                        widget.courseModel.name,
                         style: Theme.of(context)
                             .textTheme
                             .headline1
@@ -105,7 +116,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                         height: 10,
                       ),
                       Text(
-                        allCourse.branch,
+                        widget.courseModel.branch,
                         style: Theme.of(context)
                             .textTheme
                             .headline3
@@ -158,8 +169,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        child: Chewie(
-                          controller: chewieController,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: Chewie(
+                            controller: chewieController,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -201,7 +215,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                         width: 14,
                                       ),
                                       Text(
-                                        allCourse.duration.inDays.toString() +
+                                        widget.courseModel.duration +
                                             " days",
                                         style: Theme.of(context)
                                             .textTheme
@@ -320,90 +334,83 @@ class _CourseDetailsState extends State<CourseDetails> {
                         "What you’ll learn",
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
-                      const SizedBox(
-                        height: 19,
-                      ),
+
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: (presentDescptn <= descriptionItems.length)
-                            ? items1.length + 1
-                            : items1.length,
+                        itemCount: (isSeeMorePressed==false)
+                            ?(presentDescptn+perPageDescrptn<=widget.courseModel.courseDesc.length)
+                              ?perPageDescrptn
+                              :widget.courseModel.courseDesc.length
+                            :widget.courseModel.courseDesc.length,
                         itemBuilder: (context, index) {
-                          return (index == items1.length)
-                              ? MaterialButton(
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 17,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "See more",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4
-                                                ?.copyWith(
-                                                    color: CustomColors.red),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 7, bottom: 4),
-                                            child: SvgPicture.asset(
-                                              IconAssets.arrowdown,
-                                              height: 7,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      if ((presentDescptn + perPageDescrptn) >
-                                          descriptionItems.length) {
-                                        items1.addAll(descriptionItems.getRange(
-                                            presentDescptn,
-                                            descriptionItems.length));
-                                      } else {
-                                        items1.addAll(descriptionItems.getRange(
-                                            presentDescptn,
-                                            presentDescptn + perPageDescrptn));
-                                      }
-                                      presentDescptn =
-                                          presentDescptn + perPageDescrptn;
-                                    });
-                                  },
-                                )
-                              : Column(
+                          return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
                                         SvgPicture.asset(
-                                          IconAssets.tickCircle,
+                                          IconAssets.tickCircleRed,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 14,
                                         ),
                                         Expanded(
                                             child: Text(
-                                          "Lorem Ipsum is simply dummy text of the printing blah blah ${index + 1}",
+                                          widget.courseModel.courseDesc[index],
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
                                         )),
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 14,
                                     )
                                   ],
                                 );
+                        },
+                      ),
+                      const SizedBox(height: 10,),
+                      if(isSeeMorePressed==false)
+                      MaterialButton(
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 17,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "See more",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4
+                                      ?.copyWith(
+                                      color: CustomColors.red),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 7, bottom: 4),
+                                  child: SvgPicture.asset(
+                                    IconAssets.arrowdown,
+                                    height: 7,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            items1.addAll(widget.courseModel.courseDesc.getRange(
+                                presentSyllabus, widget.courseModel.courseDesc.length));
+                            presentDescptn==widget.courseModel.courseDesc.length;
+                            isSeeMorePressed=true;
+                          });
                         },
                       ),
                       const SizedBox(
@@ -474,7 +481,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     ),
                     Container(
                       foregroundDecoration: BoxDecoration(
-                        gradient: isPressed
+                        gradient: isSyllabusPressed
                             ? null
                             : LinearGradient(
                                 begin: FractionalOffset.bottomCenter,
@@ -488,88 +495,98 @@ class _CourseDetailsState extends State<CourseDetails> {
                                     0.9
                                   ]),
                       ),
-                      child: ListView.builder(
+                      child: ListView.separated(
+                        separatorBuilder: (context,index){
+                         return SizedBox(height: 14,);
+                        },
                           padding: EdgeInsets.zero,
-                          itemCount: (presentDescptn <= syllabusItems.length)
-                              ? items2.length + 1
-                              : items2.length,
+                          itemCount:(isSyllabusPressed==false)
+                                ?(presentSyllabus+perPageSyllabus<=widget.courseModel.syllabusModel.length)
+                                    ?perPageSyllabus
+                                    :widget.courseModel.syllabusModel.length
+                                :widget.courseModel.syllabusModel.length,
+
+    //(presentDescptn <= syllabusItems.length)
+                              // ? items2.length + 1
+                              // : items2.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: CustomColors.bglte,
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: CustomColors.bglte,
+                              ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(14),
+                                        child: Image.asset(
+                                          widget.courseModel.syllabusModel[index].imgUrl,fit: BoxFit.fill,
+                                          width: MediaQuery.of(context).size.width*.2978,
+                                          height: MediaQuery.of(context).size.width*.20572,
+                                        )),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
-                                            child: Image.asset(
-                                              ImageAssets.liveClass,
-                                              scale: 4.5,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: 16,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Introduction",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1
-                                                ?.copyWith(color: Colors.white),
-                                          ),
-                                          Text(
-                                            "Course introduction & over view",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                ?.copyWith(
-                                                    color: CustomColors.light2),
-                                          ),
-                                          SizedBox(
-                                            height: 25,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "25 min",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .caption
-                                                    ?.copyWith(
-                                                        color: CustomColors
-                                                            .light2),
-                                              ),
-                                              SvgPicture.asset(IconAssets.right)
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    width: 16,
                                   ),
-                                ),
-                                SizedBox(height: 14),
-                              ],
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.courseModel.syllabusModel[index].topicName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1
+                                              ?.copyWith(color: Colors.white),
+                                        ),
+                                        Text(
+                                          widget.courseModel.syllabusModel[index].subtitle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              ?.copyWith(
+                                                  color: CustomColors.light2),
+                                        ),
+                                        SizedBox(height: 15,),
+
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              widget.courseModel.syllabusModel[index].duration +" min",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .caption
+                                                  ?.copyWith(
+                                                      color: CustomColors
+                                                          .light2),
+                                            ),
+                                            Spacer(),
+                                            SvgPicture.asset(IconAssets.right),
+
+                                            SizedBox(width: 15,),
+                                          ],
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             );
                           }),
                     ),
                     SizedBox(
                       height: 36,
                     ),
-                    if (isPressed != true)
+                    if (isSyllabusPressed == false)
                       Column(
                         children: [
                           Padding(
@@ -580,11 +597,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                               color: Colors.white,
                               textColor: CustomColors.black,
                               onPressed: () {
-                                setState(() {
-                                  items2.addAll(syllabusItems.getRange(
-                                      presentSyllabus, syllabusItems.length));
-                                  isPressed = true;
-                                });
+                                  setState(() {
+                                  items2.addAll(widget.courseModel.syllabusModel.getRange(
+                                  presentSyllabus, widget.courseModel.syllabusModel.length));
+                                  presentSyllabus==widget.courseModel.courseDesc.length;
+                                  isSyllabusPressed=true;
+                                  });
                               },
                             ),
                           ),
@@ -629,7 +647,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: 3,
+                            itemCount: widget.courseModel.paymentModel.length,
                             itemBuilder: (BuildContext context,int index){
                           return Container(
                             margin: EdgeInsets.only(bottom: 8),
@@ -642,13 +660,24 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(height: 12,),
-                                  Text("First Installment",style: Theme.of(context).textTheme.bodyText1?.copyWith(color: CustomColors.black),),
+                              // switch(index){//TODO SWITCh
+                              // case 0: "First"
+                              // break;
+                              // case 1: "Second"
+                              // break;
+                              // case 2: "Third"
+                              // break;
+                              // case 3: "Fourth"
+                              // break;
+                              //
+                              // }
+                                  Text(" Installment",style: Theme.of(context).textTheme.bodyText1?.copyWith(color: CustomColors.black),),
                                   SizedBox(height: 6,),
                                   Row(
                                     children: [
                                       SvgPicture.asset(IconAssets.calendar,color: CustomColors.light2,),
                                       SizedBox(width: 10,),
-                                      Text("20 days",style: Theme.of(context).textTheme.bodyText2?.copyWith(color: CustomColors.light2),),
+                                      Text(widget.courseModel.paymentModel[index].duration +" days",style: Theme.of(context).textTheme.bodyText2?.copyWith(color: CustomColors.light2),),
                                     ],
                                   ),
                                   SizedBox(height: 12,),
@@ -656,7 +685,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 ],
                               ),
                               Spacer(),
-                              Text("₹3000",style: Theme.of(context).textTheme.headline3?.copyWith(color: CustomColors.red),),
+                              Text("₹"+ widget.courseModel.paymentModel[index].rate.toString(),style: Theme.of(context).textTheme.headline3?.copyWith(color: CustomColors.red),),
                               SizedBox(width: 24,)
                             ],
                           ),
@@ -681,7 +710,7 @@ class _CourseDetailsState extends State<CourseDetails> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(color: Colors.white,boxShadow:  [
                 BoxShadow(
-                  color: CustomColors.red,
+                  color: CustomColors.bglte,
                   blurRadius: 0,
                   spreadRadius: 0.0,
                   offset: Offset(0.0, -0.3), // shadow direction: bottom right
