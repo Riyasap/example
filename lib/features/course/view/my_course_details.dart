@@ -5,6 +5,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:redteam_xperience/core/constants/assets.dart';
 import 'package:redteam_xperience/core/style/custom_colors.dart';
 import 'package:redteam_xperience/features/course/model/course_model.dart';
+import 'package:redteam_xperience/features/course/view/module_details.dart';
 import 'package:redteam_xperience/shared_widget/appbar_scroll.dart';
 import 'package:pie_chart/pie_chart.dart';
 
@@ -274,7 +275,7 @@ class _MyCourseDetailsState extends State<MyCourseDetails> {
                                               borderRadius:
                                                   BorderRadius.circular(12),
                                               color: CustomColors.red),
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 15,
                                               right: 15,
                                               top: 20,
@@ -284,7 +285,7 @@ class _MyCourseDetailsState extends State<MyCourseDetails> {
                                             width: 40,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 16,
                                         ),
                                         Text(
@@ -304,7 +305,7 @@ class _MyCourseDetailsState extends State<MyCourseDetails> {
                       ]))
             ]),
           ),
-          SizedBox(
+          const SizedBox(
             height: 65,
           ),
           Padding(
@@ -314,106 +315,110 @@ class _MyCourseDetailsState extends State<MyCourseDetails> {
               style: Theme.of(context).textTheme.headline3,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           ListView.separated(
               separatorBuilder: (context, index) {
-                return SizedBox(
+                return const SizedBox(
                   height: 12,
                 );
               },
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: 20,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                  Column(
-                    children: [
-                      SvgPicture.asset(IconAssets.lockCircle1,color: CustomColors.light1,width: 63,),
-                      Container(
-                        padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            color: CustomColors.red.withOpacity(.4),
-                            borderRadius: BorderRadius.circular(120)),
-                        child: PieChart(
-                          dataMap: {
-                            "completed": 8,
-                            "Not Comleted": 5,
-                          },
-                          chartLegendSpacing: 20,
-                          colorList: [
-                            CustomColors.red,
-                            CustomColors.red.withOpacity(.2)
-                          ],
-                          chartRadius: 40,
-                          chartValuesOptions: ChartValuesOptions(
-                            showChartValues: false,
+                return InkWell(onTap: (){
+                  Get.to(()=>ModuleDetails());
+                },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                    Column(
+                      children: [
+                        SvgPicture.asset(IconAssets.lockCircle1,color: CustomColors.light1,width: 63,),
+                        Container(
+                          padding: const EdgeInsets.all(7),
+                          decoration: BoxDecoration(
+                              color: CustomColors.red.withOpacity(.4),
+                              borderRadius: BorderRadius.circular(120)),
+                          child: PieChart(
+                            dataMap: const {
+                              "completed": 8,
+                              "Not Comleted": 5,
+                            },
+                            chartLegendSpacing: 20,
+                            colorList: [
+                              CustomColors.red,
+                              CustomColors.red.withOpacity(.2)
+                            ],
+                            chartRadius: 40,
+                            chartValuesOptions: ChartValuesOptions(
+                              showChartValues: false,
+                            ),
+                            legendOptions: LegendOptions(showLegends: false),
+                            initialAngleInDegree: 268,
                           ),
-                          legendOptions: LegendOptions(showLegends: false),
-                          initialAngleInDegree: 268,
                         ),
-                      ),
 
-                      CircleAvatar(backgroundColor: CustomColors.green,radius: 28,child: SvgPicture.asset(IconAssets.tickCircleGrey,width: 48 ,color: Colors.white,),),
-                    ],
-                  ),
-                      // Container(
-                      //   padding: EdgeInsets.all(4),
-                      //   decoration: BoxDecoration(
-                      //       color: CustomColors.red.withOpacity(.4),
-                      //       borderRadius: BorderRadius.circular(120)),
-                      //   child: PieChart(
-                      //     dataMap: {
-                      //       "completed": 8,
-                      //       "Not Comleted": 5,
-                      //     },
-                      //     chartLegendSpacing: 20,
-                      //     colorList: [
-                      //       CustomColors.red,
-                      //       CustomColors.red.withOpacity(.2)
-                      //     ],
-                      //     chartRadius: 35,
-                      //     chartValuesOptions: ChartValuesOptions(
-                      //       showChartValues: false,
-                      //     ),
-                      //     legendOptions: LegendOptions(showLegends: false),
-                      //     initialAngleInDegree: 268,
-                      //   ),
-                      // ),
+                        CircleAvatar(backgroundColor: CustomColors.green,radius: 28,child: SvgPicture.asset(IconAssets.tickCircleGrey,width: 48 ,color: Colors.white,),),
+                      ],
+                    ),
+                        // Container(
+                        //   padding: EdgeInsets.all(4),
+                        //   decoration: BoxDecoration(
+                        //       color: CustomColors.red.withOpacity(.4),
+                        //       borderRadius: BorderRadius.circular(120)),
+                        //   child: PieChart(
+                        //     dataMap: {
+                        //       "completed": 8,
+                        //       "Not Comleted": 5,
+                        //     },
+                        //     chartLegendSpacing: 20,
+                        //     colorList: [
+                        //       CustomColors.red,
+                        //       CustomColors.red.withOpacity(.2)
+                        //     ],
+                        //     chartRadius: 35,
+                        //     chartValuesOptions: ChartValuesOptions(
+                        //       showChartValues: false,
+                        //     ),
+                        //     legendOptions: LegendOptions(showLegends: false),
+                        //     initialAngleInDegree: 268,
+                        //   ),
+                        // ),
 
-                      //CircleAvatar(backgroundColor: CustomColors.green,radius: 30,child: SvgPicture.asset(IconAssets.tickCircleGrey,width: 52,color: Colors.white,),),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Module 1",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(color: CustomColors.light2),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "Cyber security building block",
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        ],
-                      )
-                    ],
+                        //CircleAvatar(backgroundColor: CustomColors.green,radius: 30,child: SvgPicture.asset(IconAssets.tickCircleGrey,width: 52,color: Colors.white,),),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Module 1",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(color: CustomColors.light2),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "Cyber security building block",
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               })

@@ -55,6 +55,7 @@ class IconAssets{
 
   static const String note_big = "assets/icon/note_big.svg";
   static const String material = "assets/icon/material.svg";
+  static const String bookmark = "assets/icon/bookmark.svg";
   //TODO delete
   static const String live = "assets/icon/live.svg";
   static const String events = "assets/icon/events.svg";

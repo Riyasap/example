@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:redteam_xperience/screen/example.dart';
 import 'package:redteam_xperience/screen/home.dart';
-import 'package:redteam_xperience/screen/my_courses.dart';
+import 'package:redteam_xperience/features/course/view/my_courses.dart';
 import 'package:redteam_xperience/screen/notification_screen.dart';
 import 'package:get/get.dart';
 import '../core/constants/assets.dart';
